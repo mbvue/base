@@ -10,7 +10,7 @@ module.exports = function () {
     let loading = ora();
     loading.start(`Start Buiding...\n`);
 
-    let config = baseConfig('development', fs.existsSync(customize) ? require(customize) : {}); //合并基础配置
+    let config = baseConfig('production', fs.existsSync(customize) ? require(customize) : {}); //合并基础配置
     
     //编译
     return webpack(config).run(function() {

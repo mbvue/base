@@ -6,6 +6,7 @@ const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = function (mode, customize) {
     let config = {
@@ -86,8 +87,11 @@ module.exports = function (mode, customize) {
 
     //处理打包
     if(mode === 'production') {
-        mergeConfig.plugins.push(new MiniCssExtractPlugin({ filename: '[name].css' }));
-        mergeConfig.plugins.push(new CleanWebpackPlugin());
+        mergeConfig.plugins.push.apply(mergeConfig.plugins, [
+            new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
+            new OptimizeCssAssetsWebpackPlugin(),
+            new CleanWebpackPlugin()
+        ]);
     }
 
     return mergeConfig;

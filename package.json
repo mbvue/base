@@ -1,6 +1,6 @@
 {
     "name": "@mbvue/config",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "description": "vue config",
     "main": "index.js",
     "bin": {
@@ -22,7 +22,7 @@
     "license": "MIT",
     "dependencies": {
         "@mbvue/babel-preset-config": "^0.0.4",
-        "@mbvue/eslint-config": "^0.0.11",
+        "@mbvue/eslint-config": "^0.0.12",
         "@mbvue/markdown-loader": "^0.0.3",
         "@mbvue/prettier-config": "^0.1.0",
         "@mbvue/stylelint-config": "^0.1.2",
@@ -38,6 +38,7 @@
         "less-loader": "^7.0.2",
         "lodash.merge": "^4.6.2",
         "mini-css-extract-plugin": "^1.2.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.4",
         "ora": "^5.1.0",
         "portfinder": "^1.0.28",
         "postcss-loader": "^4.0.4",

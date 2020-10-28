@@ -28,7 +28,7 @@ module.exports = function (mode, customize) {
         output: {
             publicPath: '/',
             path: path.resolve(root, './dist'), //输出路径
-            filename: '[name].js' //文件名称
+            filename: 'js/[name].[chunkhash:8].js' //文件名称
         },
     
         target: [`browserslist:${browsers}`], //构建目标
@@ -40,7 +40,7 @@ module.exports = function (mode, customize) {
                 { test: /\.md$/, use: [{ loader: 'vue-loader' }, { loader: '@mbvue/markdown-loader' }] }, //加载 md
                 { test: /\.(js|jsx|ts|tsx)$/, loader: 'babel-loader', exclude: /node_modules/ }, //加载 js jsx ts tsx
                 { test: /\.css$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader'] }, //加载 css
-                { test: /\.less$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'less-loader', 'postcss-loader'] } //加载 less
+                { test: /\.less$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'less-loader', options: { lessOptions: { javascriptEnabled: true } } }, 'postcss-loader'] } //加载 less
             ]
         },
     
@@ -48,11 +48,6 @@ module.exports = function (mode, customize) {
         plugins: [
             new VueLoaderPlugin()
         ],
-    
-        //控制只显示错误的 bundle 信息
-        stats: {
-            preset: 'errors-only'
-        },
     
         //服务配置
         devServer: {
@@ -64,7 +59,22 @@ module.exports = function (mode, customize) {
             compress: true, //启用gzip压缩
             hot: true,
             open: true,
-            stats: 'errors-only'
+            stats: {
+                assets: false,
+                builtAt: false,
+                cached: false,
+                cachedAssets: false,
+                children: false,
+                chunks: false,
+                chunkModules: false,
+                chunkOrigins: false,
+                hash: false,
+                modules: false,
+                publicPath: false,
+                reasons: false,
+                source: false,
+                version: false
+            }
         },
     
         //扩展配置html信息
@@ -88,7 +98,7 @@ module.exports = function (mode, customize) {
     //处理打包
     if(mode === 'production') {
         mergeConfig.plugins.push.apply(mergeConfig.plugins, [
-            new MiniCssExtractPlugin({ filename: 'css/[name].css' }),
+            new MiniCssExtractPlugin({ filename: 'css/[name].[chunkhash:8].css' }),
             new OptimizeCssAssetsWebpackPlugin(),
             new CleanWebpackPlugin()
         ]);

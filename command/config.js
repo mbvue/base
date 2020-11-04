@@ -46,6 +46,9 @@ module.exports = function (mode, customize) {
         plugins: [
             new VueLoader()
         ],
+
+        //通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
+        devtool: 'source-map',
     
         //服务配置
         devServer: {

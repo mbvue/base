@@ -1,20 +1,15 @@
 #!/usr/bin/env node
-const path = require('path');
 const fs = require('fs');
-const portfinder = require('portfinder');
+const path = require('path');
 const webpack = require('webpack');
+const portfinder = require('portfinder');
 const WebpackDevServer = require('webpack-dev-server');
-const baseConfig = require('./webpack.config');
-const customize = path.resolve(process.cwd(), './vue.config.js'); //自定义配置
+const baseConfig = require('./config');
+const customizeConfig = path.resolve(process.cwd(), './vue.config.js'); //自定义配置
 
 module.exports = async function () {
-    let config = baseConfig('development', fs.existsSync(customize) ? require(customize) : {}); //合并基础配置
-    
-    //处理端口
-    if(!config.devServer.port){
-        config.devServer.port = await portfinder.getPortPromise({ port: 8080, stopPort: 8888 });
-    }
+    let config = baseConfig('development', fs.existsSync(customizeConfig) ? require(customizeConfig) || {} : {}); //合并基础配置
+    if(!config.devServer.port) config.devServer.port = await portfinder.getPortPromise({ port: 8080, stopPort: 8888 }); //处理端口
 
-    //编译
     return new WebpackDevServer(webpack(config), config.devServer).listen(config.devServer.port);
 }

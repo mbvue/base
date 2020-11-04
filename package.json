@@ -1,8 +1,7 @@
 {
     "name": "@mbvue/config",
-    "version": "0.0.11",
+    "version": "0.0.14",
     "description": "vue config",
-    "main": "index.js",
     "bin": {
         "mbvue": "./bin/mbvue.js"
     },
@@ -15,17 +14,18 @@
     },
     "homepage": "https://github.com/mbvue/config#readme",
     "keywords": [
-        "vue",
-        "config"
+        "vue config",
+        "mbvue"
     ],
     "author": "hwq <17031989083@qq.com>",
     "license": "MIT",
     "dependencies": {
-        "@mbvue/babel-preset-config": "^0.0.4",
-        "@mbvue/eslint-config": "^0.0.12",
-        "@mbvue/markdown-loader": "^0.0.3",
-        "@mbvue/prettier-config": "^0.1.0",
-        "@mbvue/stylelint-config": "^0.1.2",
+        "@mbvue/babel-preset-config": "^0.0.5",
+        "@mbvue/browserslist-config": "^0.0.1",
+        "@mbvue/eslint-config": "^0.0.16",
+        "@mbvue/markdown-loader": "^0.0.4",
+        "@mbvue/prettier-config": "^0.1.5",
+        "@mbvue/stylelint-config": "^0.1.4",
         "@vue/compiler-sfc": "^3.0.2",
         "autoprefixer": "^9.8.6",
         "babel-loader": "^8.1.0",
@@ -33,6 +33,7 @@
         "clean-webpack-plugin": "^3.0.0",
         "commander": "^6.2.0",
         "css-loader": "^5.0.0",
+        "file-loader": "^6.2.0",
         "html-webpack-plugin": "^4.5.0",
         "less": "^3.12.2",
         "less-loader": "^7.0.2",
@@ -41,12 +42,12 @@
         "optimize-css-assets-webpack-plugin": "^5.0.4",
         "ora": "^5.1.0",
         "portfinder": "^1.0.28",
+        "postcss": "^8.1.4",
         "postcss-loader": "^4.0.4",
         "style-loader": "^2.0.0",
-        "vue": "^3.0.2",
-        "vue-loader": "^16.0.0-beta.8",
-        "vue-router": "^4.0.0-rc.1",
-        "webpack": "^5.2.0",
+        "url-loader": "^4.1.1",
+        "vue-template-compiler": "^2.6.12",
+        "webpack": "^4.44.2",
         "webpack-cli": "^3.3.12",
         "webpack-dev-server": "^3.11.0"
     }

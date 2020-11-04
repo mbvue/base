@@ -1,18 +1,26 @@
 #!/usr/bin/env node
-const path = require('path');
-const { execSync } = require('child_process');
 const ora = require('ora');
+const path = require('path');
+const chalk = require('chalk');
+const { execSync } = require('child_process');
 
 module.exports = function (args) {
     let loading = ora();
-    loading.start(`Start Formatting Style...\n`);
+    loading.start(`start formatting style...\n`);
 
     try {
         execSync(`${path.resolve(process.cwd(), './node_modules/.bin/eslint')} --ext .js --ext .jsx --ext .ts --ext .tsx --ext .vue --ext .md --fix ./`);
-        execSync(`${path.resolve(process.cwd(), './node_modules/.bin/stylelint')} "**/*.less" --syntax less --fix`);
+        execSync(`${path.resolve(process.cwd(), './node_modules/.bin/stylelint')} "**/*.{css,scss,sass}" --fix`);
 
-        loading.succeed('Succee Format Style...');
+        loading.succeed('succee format style...');
     } catch (error) {
-        loading.fail('Fail Format Style...');
+        if(error.output) {
+            error.output.map(obj => {
+                if(obj){
+                    console.log(chalk.red(obj.toString()));
+                }
+            });
+        }
+        loading.fail('fail format style...');
     }
 };

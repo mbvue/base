@@ -1,6 +1,6 @@
 {
     "name": "@mbvue/config",
-    "version": "0.0.16",
+    "version": "0.0.18",
     "description": "vue config",
     "bin": {
         "mbvue": "./bin/mbvue.js"
@@ -27,7 +27,6 @@
         "@mbvue/prettier-config": "^0.1.5",
         "@mbvue/stylelint-config": "^0.1.4",
         "@vue/compiler-sfc": "^3.0.2",
-        "autoprefixer": "^9.8.6",
         "babel-loader": "^8.1.0",
         "chalk": "^4.1.0",
         "clean-webpack-plugin": "^3.0.0",
@@ -43,6 +42,7 @@
         "ora": "^5.1.0",
         "portfinder": "^1.0.28",
         "postcss-loader": "^4.0.4",
+        "postcss-preset-env": "^6.7.0",
         "style-loader": "^2.0.0",
         "url-loader": "^4.1.1",
         "vue-template-compiler": "^2.6.12",

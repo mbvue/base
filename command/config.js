@@ -37,8 +37,8 @@ module.exports = function (mode, customize) {
                 { test: /\.md$/, use: [{ loader: 'vue-loader' }, { loader: '@mbvue/markdown-loader' }] }, //加载 md
                 { test: /\.(js|jsx|ts|tsx)$/, loader: 'babel-loader', exclude: /node_modules/ }, //加载 js jsx ts tsx
                 { test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/, loader: 'url-loader', options: { limit: 10000 } }, //加载静态资源
-                { test: /\.css$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', 'postcss-loader'] }, //加载 css
-                { test: /\.less$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'less-loader', options: { lessOptions: { javascriptEnabled: true } } }, 'postcss-loader'] } //加载 less
+                { test: /\.css$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'postcss-loader', options: { postcssOptions: { plugins: ['postcss-preset-env'] } } }] }, //加载 css
+                { test: /\.less$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'postcss-loader', options: { postcssOptions: { plugins: ['postcss-preset-env'] } } }, { loader: 'less-loader', options: { lessOptions: { javascriptEnabled: true } } }] } //加载 less
             ]
         },
     

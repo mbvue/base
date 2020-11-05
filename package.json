@@ -1,6 +1,6 @@
 {
     "name": "@mbvue/config",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "description": "vue config",
     "bin": {
         "mbvue": "./bin/mbvue.js"
@@ -22,7 +22,7 @@
     "dependencies": {
         "@mbvue/babel-preset-config": "^0.0.5",
         "@mbvue/browserslist-config": "^0.0.1",
-        "@mbvue/eslint-config": "^0.0.16",
+        "@mbvue/eslint-config": "^0.0.17",
         "@mbvue/markdown-loader": "^0.0.4",
         "@mbvue/prettier-config": "^0.1.5",
         "@mbvue/stylelint-config": "^0.1.4",

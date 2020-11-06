@@ -10,7 +10,7 @@ module.exports = function (args) {
 
     try {
         execSync(`${path.resolve(process.cwd(), './node_modules/.bin/eslint')} --ext .js --ext .jsx --ext .ts --ext .tsx --ext .vue --ext .md --fix ./`);
-        execSync(`${path.resolve(process.cwd(), './node_modules/.bin/stylelint')} "**/*.{css,scss,sass}" --fix`);
+        execSync(`${path.resolve(process.cwd(), './node_modules/.bin/stylelint')} "**/*.{css,less,scss,sass}" --fix`);
 
         loading.succeed('succee format style...');
     } catch (error) {

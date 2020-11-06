@@ -47,9 +47,12 @@ module.exports = function (mode, customize) {
             new VueLoader()
         ],
 
-        //通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
-        devtool: 'source-map',
-    
+        optimization: {
+            splitChunks: {
+                name: 'common' //分割公共文件名称
+            }
+        },
+
         //服务配置
         devServer: {
             historyApiFallback: {
@@ -100,6 +103,10 @@ module.exports = function (mode, customize) {
         config.resolve.alias['vue$'] = vue.version.slice(0, 1) === '2' ? 'vue/dist/vue.esm.js' : '@vue/runtime-dom';
     }
 
+    if(mode === 'development') {
+        config.devtool = 'source-map'; //通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
+    }
+
     let mergeConfig = merge(config, customize);
 
     //处理HTML
@@ -116,11 +123,17 @@ module.exports = function (mode, customize) {
 
     //打包处理
     if(mode === 'production') {
-        mergeConfig.plugins.push.apply(mergeConfig.plugins, [
-            new MiniCssExtractPlugin({ filename: 'css/[name].[chunkhash:8].css' }),
-            new OptimizeCssAssetsWebpackPlugin(),
-            new CleanWebpackPlugin()
-        ]);
+        if(!mergeConfig.plugins.find(obj => obj instanceof MiniCssExtractPlugin)) {
+            config.plugins.push(new MiniCssExtractPlugin({ filename: 'css/[name].[hash:8].css' }));
+        }
+
+        if(!mergeConfig.plugins.find(obj => obj instanceof OptimizeCssAssetsWebpackPlugin)) {
+            config.plugins.push(new OptimizeCssAssetsWebpackPlugin());
+        }
+
+        if(!mergeConfig.plugins.find(obj => obj instanceof CleanWebpackPlugin)) {
+            config.plugins.push(new CleanWebpackPlugin());
+        }
     }
 
     return mergeConfig;

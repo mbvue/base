@@ -31,21 +31,10 @@ module.exports = function (mode, customize) {
         },
     
         //模块配置
-        module: {
-            rules: [
-                { test: /\.vue$/, loader: 'vue-loader' }, //加载 vue
-                { test: /\.md$/, use: [{ loader: 'vue-loader' }, { loader: '@mbvue/markdown-loader' }] }, //加载 md
-                { test: /\.(js|jsx|ts|tsx)$/, loader: 'babel-loader', exclude: /node_modules/ }, //加载 js jsx ts tsx
-                { test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/, loader: 'url-loader', options: { limit: 10000 } }, //加载静态资源
-                { test: /\.css$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'postcss-loader', options: { postcssOptions: { plugins: ['postcss-preset-env'] } } }] }, //加载 css
-                { test: /\.less$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'postcss-loader', options: { postcssOptions: { plugins: ['postcss-preset-env'] } } }, { loader: 'less-loader', options: { lessOptions: { javascriptEnabled: true } } }] } //加载 less
-            ]
-        },
+        module: { rules: [] },
     
         //插件
-        plugins: [
-            new VueLoader()
-        ],
+        plugins: [],
 
         optimization: {
             splitChunks: {
@@ -108,6 +97,21 @@ module.exports = function (mode, customize) {
     }
 
     let mergeConfig = merge(config, customize);
+
+    //模块规则配置
+    mergeConfig.module.rules = mergeConfig.module.rules || [];
+    mergeConfig.module.rules = [
+        { test: /\.vue$/, loader: 'vue-loader' }, //加载 vue
+        { test: /\.md$/, use: [{ loader: 'vue-loader' }, { loader: '@mbvue/markdown-loader' }] }, //加载 md
+        { test: /\.(js|jsx|ts|tsx)$/, loader: 'babel-loader', exclude: /node_modules/ }, //加载 js jsx ts tsx
+        { test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/, loader: 'url-loader', options: { limit: 10000 } }, //加载静态资源
+        { test: /\.css$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'postcss-loader', options: { postcssOptions: { plugins: ['postcss-preset-env'] } } }] }, //加载 css
+        { test: /\.less$/, use: [mode === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', 'css-loader', { loader: 'postcss-loader', options: { postcssOptions: { plugins: ['postcss-preset-env'] } } }, { loader: 'less-loader', options: { lessOptions: { javascriptEnabled: true } } }] } //加载 less
+    ].concat(mergeConfig.module.rules);
+
+    //插件
+    mergeConfig.plugins = mergeConfig.plugins || [];
+    mergeConfig.plugins = [ new VueLoader() ].concat(mergeConfig.plugins);
 
     //处理HTML
     if(!mergeConfig.plugins.find(obj => obj instanceof HtmlWebpackPlugin)) {
